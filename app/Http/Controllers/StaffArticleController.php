@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\Category;
+use App\Enums\ArticleStatus;
+use App\Services\ArticleService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class StaffArticleController extends Controller
 {
+    public function __construct(private ArticleService $articleService) {}
     public function index(): View
     {
         $articles = Article::where('author_id', Auth::id())
@@ -40,10 +42,10 @@ class StaffArticleController extends Controller
             'tags' => 'nullable|string',
         ]);
 
-        $validated['slug'] = Str::slug($validated['title_bn'] . '-' . Str::random(4));
+        $validated['slug'] = $this->articleService->generateUniqueSlug($validated['title_bn']);
         $validated['author_id'] = Auth::id();
-        $validated['status'] = 'draft';
-        $validated['reading_time_minutes'] = $this->calculateReadingTime($validated['body_bn']);
+        $validated['status'] = ArticleStatus::DRAFT->value;
+        $validated['reading_time_minutes'] = $this->articleService->calculateReadingTime($validated['body_bn']);
 
         $article = Article::create($validated);
 
@@ -94,8 +96,8 @@ class StaffArticleController extends Controller
             'excerpt_bn' => $validated['excerpt_bn'] ?? null,
             'featured_image' => $validated['featured_image'] ?? null,
             'video_url' => $validated['video_url'] ?? null,
-            'status' => $validated['action'] === 'submit' ? 'submitted' : 'draft',
-            'reading_time_minutes' => $this->calculateReadingTime($validated['body_bn']),
+            'status' => $validated['action'] === 'submit' ? ArticleStatus::SUBMITTED->value : ArticleStatus::DRAFT->value,
+            'reading_time_minutes' => $this->articleService->calculateReadingTime($validated['body_bn']),
         ]);
 
         if (!empty($validated['tags'])) {
@@ -123,14 +125,5 @@ class StaffArticleController extends Controller
         }
         $article->delete();
         return redirect()->route('staff.articles.index')->with('success', 'আর্টিকেল ডিলিট করা হয়েছে!');
-    }
-
-    private function calculateReadingTime(string $html): int
-    {
-        $text = strip_tags($html);
-        $words = preg_split('/\s+/u', trim($text));
-        $wordCount = count($words);
-        $minutes = (int) ceil($wordCount / 200);
-        return max(1, $minutes);
     }
 }

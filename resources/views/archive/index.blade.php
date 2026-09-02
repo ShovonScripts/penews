@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-6">
     <div class="mb-8 pb-6 border-b border-[#e0e0e0] dark:border-[#333]">
-        <h1 class="font-['Playfair_Display'] text-3xl font-bold">PEN আর্কাইভ</h1>
+        <h1 class="font-serif text-3xl font-bold">PEN আর্কাইভ</h1>
         <p class="text-[#666] dark:text-[#999] mt-2">সার্কুলার, গেজেট নোটিফিকেশন, নীতি নির্ধারক দলিল ও অন্যান্য গুরুত্বপূর্ণ নথি</p>
     </div>
 

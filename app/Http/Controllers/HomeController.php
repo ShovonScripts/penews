@@ -6,85 +6,104 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Setting;
 use App\Models\PageView;
+use App\Enums\ArticleStatus;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index(): View
     {
-        $categoryIds = Category::where('is_active', true)->orderBy('order')->pluck('id');
+        $cacheTtl = 300; // 5 minutes
 
-        $latestPublished = Article::where('status', 'published')
-            ->whereIn('category_id', $categoryIds)
-            ->select('id', 'category_id', 'title_bn', 'slug', 'excerpt_bn', 'body_bn', 'featured_image', 'video_url', 'is_editor_pick', 'published_at')
-            ->with('staffs:id,name_bn')
-            ->latest('published_at')
-            ->get()
-            ->groupBy('category_id');
+        $categories = Cache::remember('home_categories', $cacheTtl, function () {
+            $activeCategories = Category::where('is_active', true)->orderBy('order')->get();
+            foreach ($activeCategories as $category) {
+                $category->articles = Article::where('status', ArticleStatus::PUBLISHED->value)
+                    ->where('category_id', $category->id)
+                    ->select('id', 'category_id', 'title_bn', 'slug', 'excerpt_bn', 'body_bn', 'featured_image', 'video_url', 'is_editor_pick', 'published_at')
+                    ->with('staffs:id,name_bn')
+                    ->latest('published_at')
+                    ->take(4)
+                    ->get();
+            }
+            return $activeCategories->filter(fn($c) => $c->articles->isNotEmpty());
+        });
 
-        $categories = Category::whereIn('id', $categoryIds)->orderBy('order')->get()->map(function ($cat) use ($latestPublished) {
-            $cat->articles = $latestPublished->get($cat->id, collect())->take(4);
-            return $cat;
-        })->filter(fn($c) => $c->articles->isNotEmpty());
-
-        $leadStory = Article::where('status', 'published')
-            ->where('is_editor_pick', true)
-            ->with(['author:id,name', 'category', 'district', 'staffs'])
-            ->latest('published_at')
-            ->first()
-            ?? Article::where('status', 'published')
-                ->with(['author:id,name', 'category', 'staffs'])
+        $leadStory = Cache::remember('home_lead_story', $cacheTtl, function () {
+            return Article::where('status', ArticleStatus::PUBLISHED->value)
+                ->where('is_editor_pick', true)
+                ->with(['author:id,name', 'category', 'district', 'staffs'])
                 ->latest('published_at')
-                ->first();
+                ->first()
+                ?? Article::where('status', ArticleStatus::PUBLISHED->value)
+                    ->with(['author:id,name', 'category', 'staffs'])
+                    ->latest('published_at')
+                    ->first();
+        });
 
-        $featuredStories = Article::where('status', 'published')
-            ->where('is_featured', true)
-            ->where('id', '!=', $leadStory?->id)
-            ->with(['category', 'staffs'])
-            ->latest('published_at')
-            ->take(3)
-            ->get();
-
-        if ($featuredStories->isEmpty()) {
-            $featuredStories = Article::where('status', 'published')
+        $featuredStories = Cache::remember('home_featured_stories', $cacheTtl, function () use ($leadStory) {
+            $stories = Article::where('status', ArticleStatus::PUBLISHED->value)
+                ->where('is_featured', true)
                 ->where('id', '!=', $leadStory?->id)
                 ->with(['category', 'staffs'])
                 ->latest('published_at')
                 ->take(3)
                 ->get();
-        }
 
-        $sliderArticles = Article::where('status', 'published')
-            ->where('is_slider', true)
-            ->with(['category', 'staffs'])
-            ->orderBy('slider_order')
-            ->orderBy('published_at', 'desc')
-            ->take(6)
-            ->get();
+            if ($stories->isEmpty()) {
+                return Article::where('status', ArticleStatus::PUBLISHED->value)
+                    ->where('id', '!=', $leadStory?->id)
+                    ->with(['category', 'staffs'])
+                    ->latest('published_at')
+                    ->take(3)
+                    ->get();
+            }
+            return $stories;
+        });
 
-        $breakingStories = Article::where('status', 'published')
-            ->where('is_breaking', true)
-            ->latest('published_at')
-            ->take(5)
-            ->get();
+        $sliderArticles = Cache::remember('home_slider_articles', $cacheTtl, function () {
+            return Article::where('status', ArticleStatus::PUBLISHED->value)
+                ->where('is_slider', true)
+                ->with(['category', 'staffs'])
+                ->orderBy('slider_order')
+                ->orderBy('published_at', 'desc')
+                ->take(6)
+                ->get();
+        });
 
-        $mostRead = Article::where('status', 'published')
-            ->with(['category', 'staffs'])
-            ->withCount('pageViews')
-            ->orderBy('page_views_count', 'desc')
-            ->take(5)
-            ->get();
+        $breakingStories = Cache::remember('home_breaking_stories', 60, function () {
+            return Article::where('status', ArticleStatus::PUBLISHED->value)
+                ->where('is_breaking', true)
+                ->latest('published_at')
+                ->take(5)
+                ->get();
+        });
 
-        $editorPicks = Article::where('status', 'published')
-            ->where('is_editor_pick', true)
-            ->where('id', '!=', $leadStory?->id)
-            ->with(['staffs'])
-            ->latest('published_at')
-            ->take(4)
-            ->get();
+        $mostRead = Cache::remember('home_most_read', 3600, function () {
+            // Cache most read for longer (1 hour) as it requires table scan
+            return Article::where('status', ArticleStatus::PUBLISHED->value)
+                ->with(['category', 'staffs'])
+                ->withCount('pageViews')
+                ->orderBy('page_views_count', 'desc')
+                ->take(5)
+                ->get();
+        });
 
-        $facebookUrl = Setting::get('social_facebook', 'https://www.facebook.com/PENNewsBD');
+        $editorPicks = Cache::remember('home_editor_picks', $cacheTtl, function () use ($leadStory) {
+            return Article::where('status', ArticleStatus::PUBLISHED->value)
+                ->where('is_editor_pick', true)
+                ->where('id', '!=', $leadStory?->id)
+                ->with(['staffs'])
+                ->latest('published_at')
+                ->take(4)
+                ->get();
+        });
+
+        $facebookUrl = Cache::remember('social_facebook_url', 86400, function () {
+            return Setting::get('social_facebook', 'https://www.facebook.com/PENNewsBD');
+        });
 
         return view('home', compact(
             'categories', 'leadStory', 'featuredStories',

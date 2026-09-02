@@ -2,7 +2,7 @@
 @section('content')
 <div class="flex items-center justify-between mb-6">
     <div>
-        <h1 class="font-['Playfair_Display'] text-2xl font-bold">ব্যবহারকারী ব্যবস্থাপনা</h1>
+        <h1 class="font-serif text-2xl font-bold">ব্যবহারকারী ব্যবস্থাপনা</h1>
         <p class="text-xs text-[#999] mt-0.5">মোট {{ $totalUsers }} জন ব্যবহারকারী</p>
     </div>
     <a href="{{ route('admin.users.create') }}" class="bg-[#0d0d0d] dark:bg-[#333] text-white px-5 py-2 text-sm font-medium hover:bg-black dark:hover:bg-[#444] transition">+ নতুন ব্যবহারকারী</a>
@@ -11,19 +11,19 @@
 {{-- Stats --}}
 <div class="grid grid-cols-4 gap-4 mb-6">
     <div class="bg-white border border-[#e0e0e0] p-4">
-        <p class="text-2xl font-bold font-['Playfair_Display']">{{ $totalUsers }}</p>
+        <p class="text-2xl font-bold font-serif">{{ $totalUsers }}</p>
         <p class="text-xs text-[#999]">মোট</p>
     </div>
     <div class="bg-white border border-[#e0e0e0] p-4">
-        <p class="text-2xl font-bold font-['Playfair_Display'] text-[#E02020]">{{ $adminCount }}</p>
+        <p class="text-2xl font-bold font-serif text-[#E02020]">{{ $adminCount }}</p>
         <p class="text-xs text-[#999]">অ্যাডমিন</p>
     </div>
     <div class="bg-white border border-[#e0e0e0] p-4">
-        <p class="text-2xl font-bold font-['Playfair_Display'] text-blue-600">{{ $editorCount }}</p>
+        <p class="text-2xl font-bold font-serif text-blue-600">{{ $editorCount }}</p>
         <p class="text-xs text-[#999]">এডিটর</p>
     </div>
     <div class="bg-white border border-[#e0e0e0] p-4">
-        <p class="text-2xl font-bold font-['Playfair_Display'] text-green-600">{{ $activeCount }}</p>
+        <p class="text-2xl font-bold font-serif text-green-600">{{ $activeCount }}</p>
         <p class="text-xs text-[#999]">সক্রিয়</p>
     </div>
 </div>

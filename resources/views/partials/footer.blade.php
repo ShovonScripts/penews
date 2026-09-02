@@ -4,7 +4,13 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 py-12 md:py-16">
             {{-- Brand Column --}}
             <div class="md:col-span-4">
-                <a href="/" class="font-['Playfair_Display'] font-bold text-3xl tracking-tight text-white">PEN</a>
+                <a href="/" class="inline-block">
+                    @if(\App\Models\Setting::get('site_logo'))
+                        <img src="{{ Storage::url(\App\Models\Setting::get('site_logo')) }}" alt="{{ config('app.name') }}" class="h-10 w-auto">
+                    @else
+                        <span class="font-serif font-bold text-3xl tracking-tight text-white">PEN</span>
+                    @endif
+                </a>
                 <p class="text-white/45 text-sm leading-relaxed mt-4 max-w-xs">
                     প্রাথমিক শিক্ষা নিউজ — বাংলাদেশের প্রাথমিক শিক্ষকদের জন্য বিশ্বস্ত সংবাদ ও সম্পদ।
                 </p>

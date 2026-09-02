@@ -1,6 +1,6 @@
 <aside id="adminSidebar" class="w-56 bg-[#0d0d0d] dark:bg-[#0a0a0a] text-white hidden md:flex flex-col shrink-0 overflow-y-auto border-r border-white/5">
     <div class="h-14 flex items-center px-5 border-b border-white/10 shrink-0">
-        <a href="{{ route('admin.dashboard') }}" class="font-['Playfair_Display'] font-bold text-lg tracking-tight">PEN <span class="text-[#E02020] font-bold">এডমিন</span></a>
+        <a href="{{ route('admin.dashboard') }}" class="font-serif font-bold text-lg tracking-tight">PEN <span class="text-[#E02020] font-bold">এডমিন</span></a>
     </div>
     <nav class="flex-1 py-5 px-3 space-y-0.5 text-sm">
 

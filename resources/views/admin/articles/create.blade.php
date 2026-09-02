@@ -4,7 +4,7 @@
     <div class="mb-6">
         <a href="{{ route('admin.articles.index') }}" class="text-xs text-[#999] hover:text-[#0d0d0d] transition"><span class="flex items-center gap-1"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg> ফিরে যান</span></a>
     </div>
-    <h1 class="font-['Playfair_Display'] text-2xl font-bold mb-6">নতুন আর্টিকেল</h1>
+    <h1 class="font-serif text-2xl font-bold mb-6">নতুন আর্টিকেল</h1>
     <div class="bg-white dark:bg-[#1a1a1a] border border-[#e0e0e0] dark:border-[#333] p-6 md:p-8">
         <form method="POST" action="{{ route('admin.articles.store') }}" class="space-y-4">
             @csrf

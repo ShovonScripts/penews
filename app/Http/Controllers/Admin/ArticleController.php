@@ -8,14 +8,16 @@ use App\Models\ArticleTag;
 use App\Models\Category;
 use App\Models\District;
 use App\Models\Staff;
+use App\Enums\ArticleStatus;
+use App\Services\ArticleService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
+    public function __construct(private ArticleService $articleService) {}
     public function index(Request $request): View
     {
         $query = Article::with(['author', 'category', 'staff', 'staffs']);
@@ -55,7 +57,7 @@ class ArticleController extends Controller
             'excerpt_bn' => 'nullable|string',
             'featured_image' => 'nullable|string|max:500',
             'video_url' => 'nullable|string|max:500',
-            'status' => 'required|in:draft,published,scheduled,submitted',
+            'status' => ['required', \Illuminate\Validation\Rule::enum(ArticleStatus::class)],
             'published_at' => $publishedAtRule,
             'is_breaking' => 'nullable|boolean',
             'is_featured' => 'nullable|boolean',
@@ -66,14 +68,13 @@ class ArticleController extends Controller
             'tags' => 'nullable|string',
         ]);
 
-        $slug = !empty($validated['title_bn']) ? Str::slug($validated['title_bn']) : '';
-        $validated['slug'] = $slug ?: 'article-' . Str::random(8);
+        $validated['slug'] = $this->articleService->generateUniqueSlug($validated['title_bn']);
         $validated['author_id'] = Auth::id();
-        $validated['reading_time_minutes'] = $this->calculateReadingTime($validated['body_bn']);
+        $validated['reading_time_minutes'] = $this->articleService->calculateReadingTime($validated['body_bn']);
 
-        if ($validated['status'] === 'published' && empty($validated['published_at'])) {
+        if ($validated['status'] === ArticleStatus::PUBLISHED->value && empty($validated['published_at'])) {
             $validated['published_at'] = now();
-        } elseif ($validated['status'] === 'scheduled') {
+        } elseif ($validated['status'] === ArticleStatus::SCHEDULED->value) {
             $validated['published_at'] = $validated['published_at'] ?? now()->addHour();
         }
 
@@ -125,7 +126,7 @@ class ArticleController extends Controller
             'excerpt_bn' => 'nullable|string',
             'featured_image' => 'nullable|string|max:500',
             'video_url' => 'nullable|string|max:500',
-            'status' => 'required|in:draft,published,scheduled,submitted',
+            'status' => ['required', \Illuminate\Validation\Rule::enum(ArticleStatus::class)],
             'published_at' => $publishedAtRule,
             'is_breaking' => 'nullable|boolean',
             'is_featured' => 'nullable|boolean',
@@ -137,15 +138,14 @@ class ArticleController extends Controller
         ]);
 
         if (empty($article->slug)) {
-            $slug = !empty($validated['title_bn']) ? Str::slug($validated['title_bn']) : '';
-            $validated['slug'] = $slug ?: 'article-' . Str::random(8);
+            $validated['slug'] = $this->articleService->generateUniqueSlug($validated['title_bn'] ?? $article->title_bn, $article->id);
         }
 
-        $validated['reading_time_minutes'] = $this->calculateReadingTime($validated['body_bn']);
+        $validated['reading_time_minutes'] = $this->articleService->calculateReadingTime($validated['body_bn']);
 
-        if ($validated['status'] === 'published' && !$article->published_at) {
+        if ($validated['status'] === ArticleStatus::PUBLISHED->value && !$article->published_at) {
             $validated['published_at'] = now();
-        } elseif ($validated['status'] === 'scheduled' && empty($validated['published_at'])) {
+        } elseif ($validated['status'] === ArticleStatus::SCHEDULED->value && empty($validated['published_at'])) {
             $validated['published_at'] = now()->addHour();
         }
 
@@ -177,14 +177,5 @@ class ArticleController extends Controller
         $article->delete();
         return redirect()->route('admin.articles.index')
             ->with('success', 'আর্টিকেল ডিলিট করা হয়েছে।');
-    }
-
-    private function calculateReadingTime(string $html): int
-    {
-        $text = strip_tags($html);
-        $words = preg_split('/\s+/u', trim($text));
-        $wordCount = count($words);
-        $minutes = (int) ceil($wordCount / 200);
-        return max(1, $minutes);
     }
 }

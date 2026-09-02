@@ -10,8 +10,11 @@ $embed = "https://www.youtube.com/embed/{$id}";
 
 @if($mode === 'embed')
 <div class="relative w-full h-full">
-    <iframe src="{{ $embed }}?autoplay=0&rel=0" title="{{ $title ?? 'YouTube video' }}"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    <iframe src="{{ $embed }}"
+        title="{{ $title ?? 'YouTube video' }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
         class="absolute inset-0 w-full h-full"></iframe>
 </div>

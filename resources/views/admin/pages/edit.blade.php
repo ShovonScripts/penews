@@ -12,7 +12,7 @@
         </span>
     </a>
 </div>
-<h1 class="font-['Playfair_Display'] text-2xl font-bold mb-6">{{ $titleBn }} <span class="text-sm font-normal text-[#999]">({{ $slug }})</span></h1>
+<h1 class="font-serif text-2xl font-bold mb-6">{{ $titleBn }} <span class="text-sm font-normal text-[#999]">({{ $slug }})</span></h1>
 
 <div class="bg-white dark:bg-[#1a1a1a] border border-[#e0e0e0] dark:border-[#333] p-6 md:p-8">
     <form method="POST" action="{{ route('admin.pages.update', $slug) }}">

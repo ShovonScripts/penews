@@ -6,15 +6,12 @@
     <title>@yield('title', 'PEN এডমিন')</title>
     <link rel="icon" type="image/x-icon" href="{{ \App\Models\Setting::get('site_favicon') ? Storage::url(\App\Models\Setting::get('site_favicon')) : asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ \App\Models\Setting::get('site_favicon') ? Storage::url(\App\Models\Setting::get('site_favicon')) : asset('favicon.ico') }}">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link 
-href="https://fonts.bunny.net/css?family=playfair-display:400,700,900|noto-sans-bengali:400,500,600,700" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
     @stack('editor')
     <script>const m=localStorage.getItem('darkMode');if(m==='true'||(!m&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark');</script>
 </head>
-<body class="bg-[#f5f5f5] dark:bg-[#121212] text-[#1a1a1a] dark:text-[#e0e0e0] font-['Hind_Siliguri'] antialiased min-h-screen">
+<body class="bg-[#f5f5f5] dark:bg-[#121212] text-[#1a1a1a] dark:text-[#e0e0e0] font-sans antialiased min-h-screen">
     <div class="flex min-h-screen">
         @include('admin.partials.sidebar')
         <div class="flex-1 flex flex-col min-w-0">
@@ -23,7 +20,7 @@ href="https://fonts.bunny.net/css?family=playfair-display:400,700,900|noto-sans-
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
                 <div class="flex items-center gap-3 w-full">
-                    <a href="{{ route('admin.dashboard') }}" class="font-['Playfair_Display'] font-bold text-lg shrink-0 dark:text-white">PEN <span class="text-[#E02020] dark:text-[#ff6b6b]">এডমিন</span></a>
+                    <a href="{{ route('admin.dashboard') }}" class="font-serif font-bold text-lg shrink-0 dark:text-white">PEN <span class="text-[#E02020] dark:text-[#ff6b6b]">এডমিন</span></a>
                     <span class="text-[#ccc] dark:text-[#444] hidden sm:inline">|</span>
                     <a href="/" target="_blank" class="border border-[#e0e0e0] dark:border-[#444] text-xs text-[#666] dark:text-[#aaa] px-3 py-1.5 hover:bg-[#f5f5f5] dark:hover:bg-[#2a2a2a] hover:text-[#0d0d0d] dark:hover:text-white transition hidden sm:flex items-center gap-1.5 shrink-0">
                         <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>

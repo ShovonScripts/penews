@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-4xl mx-auto">
     <div class="mb-8">
-        <h1 class="text-2xl md:text-3xl font-bold font-['Playfair_Display'] dark:text-white">যোগাযোগ</h1>
+        <h1 class="text-2xl md:text-3xl font-bold font-serif dark:text-white">যোগাযোগ</h1>
         <div class="w-12 h-1 bg-[#E02020] mt-3"></div>
         <p class="text-sm text-[#666] dark:text-[#aaa] mt-3 leading-relaxed">
             আপনার মতামত, পরামর্শ বা কোন প্রশ্ন থাকলে নিচের ফর্মটি ব্যবহার করে আমাদের জানাতে পারেন।

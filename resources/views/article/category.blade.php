@@ -6,7 +6,7 @@
 <div class="max-w-7xl mx-auto px-4 py-6">
     {{-- Header --}}
     <div class="mb-8 pb-6 border-b border-[#e0e0e0] dark:border-[#333]">
-        <h1 class="font-['Playfair_Display'] text-3xl lg:text-4xl font-bold">{{ $category->name_bn }}</h1>
+        <h1 class="font-serif text-3xl lg:text-4xl font-bold">{{ $category->name_bn }}</h1>
         @if($category->description)
         <p class="text-[#666] dark:text-[#999] mt-2">{{ $category->description }}</p>
         @endif
@@ -32,7 +32,7 @@
                         @endif
                     </div>
                     <div class="{{ $loop->first ? 'flex flex-col justify-center' : '' }}">
-                        <h2 class="font-['Playfair_Display'] text-lg {{ $loop->first ? 'text-2xl lg:text-3xl' : '' }} font-bold leading-snug group-hover:text-[#E02020] transition-colors">
+                        <h2 class="font-serif text-lg {{ $loop->first ? 'text-2xl lg:text-3xl' : '' }} font-bold leading-snug group-hover:text-[#E02020] transition-colors">
                             {{ $article->title_bn }}
                         </h2>
                         @if($article->excerpt_bn)

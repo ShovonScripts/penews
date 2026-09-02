@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="mb-6"><a href="{{ route('admin.categories.index') }}" class="text-xs text-[#999] hover:text-[#0d0d0d] transition"><span class="flex items-center gap-1"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg> ফিরে যান</span></a></div>
-<h1 class="font-['Playfair_Display'] text-2xl font-bold mb-6">নতুন বিভাগ</h1>
+<h1 class="font-serif text-2xl font-bold mb-6">নতুন বিভাগ</h1>
 <div class="bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] p-6 max-w-lg">
     <form method="POST" action="{{ route('admin.categories.store') }}" class="space-y-4">
         @csrf

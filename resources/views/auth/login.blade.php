@@ -6,7 +6,7 @@
 <div class="min-h-screen flex items-center justify-center px-4">
     <div class="w-full max-w-sm">
         <div class="text-center mb-8">
-            <a href="/" class="font-['Playfair_Display'] font-bold text-4xl text-[#0d0d0d] dark:text-white">PEN</a>
+            <a href="/" class="font-serif font-bold text-4xl text-[#0d0d0d] dark:text-white">PEN</a>
             <p class="text-[#666] dark:text-[#999] text-sm mt-1">প্রাথমিক শিক্ষা নিউজ</p>
         </div>
 

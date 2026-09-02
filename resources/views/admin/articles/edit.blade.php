@@ -4,7 +4,7 @@
     <div class="mb-6">
         <a href="{{ route('admin.articles.index') }}" class="text-xs text-[#999] hover:text-[#0d0d0d] transition"><span class="flex items-center gap-1"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg> ফিরে যান</span></a>
     </div>
-    <h1 class="font-['Playfair_Display'] text-2xl font-bold mb-6">আর্টিকেল এডিট</h1>
+    <h1 class="font-serif text-2xl font-bold mb-6">আর্টিকেল এডিট</h1>
     <div class="bg-white dark:bg-[#1a1a1a] border border-[#e0e0e0] dark:border-[#333] p-6 md:p-8">
         <form method="POST" action="{{ route('admin.articles.update', $article) }}" class="space-y-4">
             @csrf @method('PUT')
@@ -111,7 +111,7 @@
                 <svg class="h-4 w-4 text-[#999]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <h2 class="font-bold">SEO Analysis</h2>
             </div>
-            <div id="seoScore" class="text-2xl font-bold font-['Playfair_Display']">—</div>
+            <div id="seoScore" class="text-2xl font-bold font-serif">—</div>
         </div>
         <div id="seoChecks" class="space-y-2"></div>
         <p class="text-xs text-[#999] mt-3">পোস্টের শিরোনাম, বডি, এবং SEO ফিল্ডের ভিত্তিতে অটো-জেনারেটেড</p>
@@ -149,7 +149,7 @@ async function fetchSeoAnalysis() {
         const scoreEl = document.getElementById('seoScore');
         const checksEl = document.getElementById('seoChecks');
         scoreEl.textContent = data.score + '%';
-        scoreEl.className = 'text-2xl font-bold font-[\'Playfair_Display\'] ' + (data.score >= 80 ? 'text-green-600' : data.score >= 50 ? 'text-yellow-600' : 'text-red-600');
+        scoreEl.className = 'text-2xl font-bold font-serif ' + (data.score >= 80 ? 'text-green-600' : data.score >= 50 ? 'text-yellow-600' : 'text-red-600');
         checksEl.innerHTML = data.checks.map(c => {
             const icon = c.status === 'pass' ? '<svg class=\"h-4 w-4 text-green-600\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 13l4 4L19 7\"/></svg>' : c.status === 'warning' ? '<svg class=\"h-4 w-4 text-yellow-600\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 9v2m0 4h.01\"/></svg>' : '<svg class=\"h-4 w-4 text-red-600\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M6 18L18 6M6 6l12 12\"/></svg>';
             const color = c.status === 'pass' ? 'text-green-700 bg-green-50' : c.status === 'warning' ? 'text-yellow-700 bg-yellow-50' : 'text-red-700 bg-red-50';

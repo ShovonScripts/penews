@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex items-center justify-between mb-5">
     <div>
-        <h1 class="font-['Playfair_Display'] text-2xl font-bold">পোস্ট ম্যানেজার</h1>
+        <h1 class="font-serif text-2xl font-bold">পোস্ট ম্যানেজার</h1>
         <p class="text-xs text-[#999] mt-0.5">{{ $articles->total() }} টি পোস্ট</p>
     </div>
     <div class="flex items-center gap-2">

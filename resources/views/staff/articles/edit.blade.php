@@ -7,7 +7,7 @@
         ফিরে যান
     </a>
 </div>
-<h1 class="font-['Playfair_Display'] text-2xl font-bold mb-6 dark:text-white">আর্টিকেল এডিট</h1>
+<h1 class="font-serif text-2xl font-bold mb-6 dark:text-white">আর্টিকেল এডিট</h1>
 <div class="bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] dark:border-[#333] p-6 md:p-8">
     <form method="POST" action="{{ route('staff.articles.update', $article) }}" class="space-y-4">
         @csrf @method('PUT')

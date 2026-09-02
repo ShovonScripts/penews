@@ -10,14 +10,11 @@
     @hasSection('meta_description')
     <meta name="description" content="@yield('meta_description')">
     @endif
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link 
-href="https://fonts.bunny.net/css?family=playfair-display:400,700,900|noto-sans-bengali:400,500,600,700" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
     <script>if(localStorage.getItem('darkMode')==='true'||(!localStorage.getItem('darkMode')&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark');</script>
 </head>
-<body class="bg-[#f5f5f5] dark:bg-[#121212] text-[#1a1a1a] dark:text-[#e0e0e0] font-['Noto_Sans_Bengali'] antialiased min-h-screen flex flex-col">
+<body class="bg-[#f5f5f5] dark:bg-[#121212] text-[#1a1a1a] dark:text-[#e0e0e0] font-sans antialiased min-h-screen flex flex-col">
     @include('partials.ads.popup')
     @include('partials.header')
     @include('partials.ads.header')

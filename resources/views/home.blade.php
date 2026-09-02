@@ -49,7 +49,7 @@
                     @if($slide->category)
                     <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#E02020] bg-white/10 px-2 py-0.5 inline-block mb-1.5">{{ $slide->category->name_bn }}</span>
                     @endif
-                    <h2 class="font-['Playfair_Display'] text-base md:text-xl lg:text-2xl font-bold text-white leading-tight group-hover:text-[#E02020] transition-colors">{{ $slide->title_bn }}</h2>
+                    <h2 class="font-serif text-base md:text-xl lg:text-2xl font-bold text-white leading-tight group-hover:text-[#E02020] transition-colors">{{ $slide->title_bn }}</h2>
                     <p class="text-white/60 text-xs md:text-sm mt-1.5 max-w-2xl hidden md:block">{{ Str::limit($slide->excerpt_bn ?? strip_tags($slide->body_bn), 120) }}</p>
                 </div>
             </a>
@@ -58,14 +58,14 @@
 
         <div class="absolute bottom-2 md:bottom-4 right-4 md:right-8 flex items-center gap-2 z-10">
             @foreach($sliderArticles as $index => $slide)
-            <button type="button" onclick="goToSlide({{ $index }})" class="w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 slider-dot {{ $index === 0 ? 'bg-[#E02020] w-4 md:w-6' : 'bg-white/50 hover:bg-white/80' }}" data-index="{{ $index }}"></button>
+            <button type="button" onclick="goToSlide({{ $index }})" class="w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 slider-dot {{ $index === 0 ? 'bg-[#E02020] w-4 md:w-6' : 'bg-white/50 hover:bg-white/80' }}" data-index="{{ $index }}" aria-label="Go to Slide {{ $index + 1 }}"></button>
             @endforeach
         </div>
 
-        <button type="button" onclick="prevSlide()" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 bg-black/40 hover:bg-[#E02020] text-white flex items-center justify-center transition-colors rounded-full">
+        <button type="button" onclick="prevSlide()" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 bg-black/40 hover:bg-[#E02020] text-white flex items-center justify-center transition-colors rounded-full" aria-label="Previous Slide">
             <svg class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
         </button>
-        <button type="button" onclick="nextSlide()" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 bg-black/40 hover:bg-[#E02020] text-white flex items-center justify-center transition-colors rounded-full">
+        <button type="button" onclick="nextSlide()" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 bg-black/40 hover:bg-[#E02020] text-white flex items-center justify-center transition-colors rounded-full" aria-label="Next Slide">
             <svg class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </button>
     </div>
@@ -146,8 +146,11 @@
         <div class="lg:col-span-8 space-y-4">
             {{-- Lead Story --}}
             @if($leadStory)
-            <a href="{{ route('article.show', $leadStory->slug) }}" class="group block bg-[#0d0d0d] dark:bg-[#1a1a1a] border border-[#e0e0e0] dark:border-[#333] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                <div class="relative aspect-[16/9] md:aspect-[21/9] bg-[#0d0d0d] overflow-hidden">
+            <a href="{{ route('article.show', $leadStory->slug) }}" class="group block bg-[#0d0d0d] dark:bg-[#1a1a1a] border border-[#e0e0e0] dark:border-[#333] shadow-sm hover:shadow-md transition-all duration-300 hover-scale reveal stagger-1 relative">
+                <button type="button" class="btn-save" title="সংরক্ষণ করুন" aria-label="Save Article" onclick="event.preventDefault(); alert('Article saved!')">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                </button>
+                <div class="relative aspect-[16/9] md:aspect-[21/9] bg-[#0d0d0d] overflow-hidden img-skeleton">
                     @if($leadStory->has_video)
                     @include('partials.youtube-embed', ['videoUrl' => $leadStory->video_url, 'mode' => 'thumb'])
                     @elseif($leadStory->featured_image)
@@ -158,7 +161,7 @@
                         @if($leadStory->category)
                         <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#E02020] bg-white/10 px-2 py-0.5 inline-block mb-1.5">{{ $leadStory->category->name_bn }}</span>
                         @endif
-                        <h1 class="font-['Playfair_Display'] text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-tight text-white group-hover:text-[#E02020] transition-colors">{{ $leadStory->title_bn }}</h1>
+                        <h1 class="font-serif text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-tight text-white group-hover:text-[#E02020] transition-colors">{{ $leadStory->title_bn }}</h1>
                         <p class="text-white/70 text-sm mt-1.5 max-w-2xl leading-relaxed hidden md:block">{{ Str::limit($leadStory->excerpt_bn ?? strip_tags($leadStory->body_bn), 150) }}</p>
                     </div>
                     @if($leadStory->is_breaking)
@@ -173,7 +176,7 @@
                     @if($leadStory->category)
                     <span class="text-xs font-bold uppercase tracking-widest text-[#E02020]">{{ $leadStory->category->name_bn }}</span>
                     @endif
-                    <h1 class="font-['Playfair_Display'] text-xl lg:text-2xl xl:text-3xl font-bold leading-tight mt-1 text-white group-hover:text-[#E02020] transition-colors">{{ $leadStory->title_bn }}</h1>
+                    <h1 class="font-serif text-xl lg:text-2xl xl:text-3xl font-bold leading-tight mt-1 text-white group-hover:text-[#E02020] transition-colors">{{ $leadStory->title_bn }}</h1>
                     <p class="text-white/60 text-sm mt-1.5 leading-relaxed">{{ Str::limit($leadStory->excerpt_bn ?? strip_tags($leadStory->body_bn), 180) }}</p>
                 </div>
                 @endif
@@ -209,9 +212,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                         @if($featured)
                         <div class="md:col-span-2">
-                            <a href="{{ route('article.show', $featured->slug) }}" class="group block h-full bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] dark:border-[#333] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                            <a href="{{ route('article.show', $featured->slug) }}" class="group block h-full bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] dark:border-[#333] shadow-sm hover:shadow-md transition-all duration-300 hover-scale reveal stagger-2 relative">
+                                <button type="button" class="btn-save" title="সংরক্ষণ করুন" aria-label="Save Article" onclick="event.preventDefault(); alert('Article saved!')">
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                                </button>
                                 @if($featured->has_video || $featured->featured_image)
-                                <div class="aspect-[16/9] bg-[#0d0d0d] dark:bg-[#1a1a1a] overflow-hidden relative">
+                                <div class="aspect-[16/9] bg-[#0d0d0d] dark:bg-[#1a1a1a] overflow-hidden relative img-skeleton">
                                     @if($featured->has_video)
                                     @include('partials.youtube-embed', ['videoUrl' => $featured->video_url, 'mode' => 'thumb'])
                                     @else
@@ -233,7 +239,10 @@
                         @if($sub->isNotEmpty())
                         <div class="flex flex-col gap-3">
                             @foreach($sub as $story)
-                            <a href="{{ route('article.show', $story->slug) }}" class="group block bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] dark:border-[#333] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3">
+                            <a href="{{ route('article.show', $story->slug) }}" class="group block bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] dark:border-[#333] shadow-sm hover:shadow-md transition-all duration-300 hover-scale reveal stagger-3 p-3 relative">
+                                <button type="button" class="btn-save" title="সংরক্ষণ করুন" aria-label="Save Article" onclick="event.preventDefault(); alert('Article saved!')">
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                                </button>
                                 @if($story->is_editor_pick)
                                 <span class="text-[10px] font-bold uppercase tracking-widest text-[#E02020] border border-[#E02020] px-1 py-0.5 inline-block w-fit mb-1">এডিটরস পিক</span>
                                 @endif
@@ -249,7 +258,10 @@
                     @if($more->isNotEmpty())
                     <div class="bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] dark:border-[#333] divide-y divide-[#e0e0e0] dark:divide-[#333]">
                         @foreach($more as $story)
-                        <a href="{{ route('article.show', $story->slug) }}" class="group flex items-center gap-2 px-3 py-2 hover:bg-[#f5f5f5] dark:hover:bg-[#2a2a2a] transition-colors">
+                        <a href="{{ route('article.show', $story->slug) }}" class="group flex items-center gap-2 px-3 py-2 hover:bg-[#f5f5f5] dark:hover:bg-[#2a2a2a] transition-colors relative hover-scale reveal stagger-3">
+                            <button type="button" class="btn-save !right-2 !top-1 !w-6 !h-6" title="সংরক্ষণ করুন" aria-label="Save Article" onclick="event.preventDefault(); alert('Article saved!')">
+                                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                            </button>
                             <span class="w-1 h-1 rounded-full bg-[#E02020] shrink-0"></span>
                             <p class="text-[13px] font-medium leading-snug group-hover:text-[#E02020] transition-colors line-clamp-1">{{ $story->title_bn }}</p>
                         </a>
@@ -268,9 +280,12 @@
             @if($featuredStories->isNotEmpty())
             <div class="flex flex-col gap-3">
                 @foreach($featuredStories as $story)
-                <a href="{{ route('article.show', $story->slug) }}" class="group flex gap-2.5 bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] dark:border-[#333] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-2.5">
+                <a href="{{ route('article.show', $story->slug) }}" class="group flex gap-2.5 bg-white dark:bg-[#1e1e1e] border border-[#e0e0e0] dark:border-[#333] shadow-sm hover:shadow-md transition-all duration-300 hover-scale reveal stagger-2 p-2.5 relative">
+                    <button type="button" class="btn-save" title="সংরক্ষণ করুন" aria-label="Save Article" onclick="event.preventDefault(); alert('Article saved!')">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                    </button>
                     @if($story->has_video || $story->featured_image)
-                    <div class="w-[100px] shrink-0 aspect-[4/3] bg-[#0d0d0d] dark:bg-[#1a1a1a] overflow-hidden relative">
+                    <div class="w-[100px] shrink-0 aspect-[4/3] bg-[#0d0d0d] dark:bg-[#1a1a1a] overflow-hidden relative img-skeleton">
                         @if($story->has_video)
                         @include('partials.youtube-embed', ['videoUrl' => $story->video_url, 'mode' => 'thumb'])
                         @else
@@ -325,7 +340,7 @@
                 <div class="space-y-2">
                     @foreach($mostRead as $index => $story)
                     <a href="{{ route('article.show', $story->slug) }}" class="group flex gap-2 {{ $index > 0 ? 'pt-2 border-t border-[#e0e0e0] dark:border-[#333]' : '' }}">
-                        <span class="font-['Playfair_Display'] text-lg font-bold text-[#ccc] dark:text-[#555] leading-none shrink-0 w-5">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                        <span class="font-serif text-lg font-bold text-[#ccc] dark:text-[#555] leading-none shrink-0 w-5">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-semibold leading-snug group-hover:text-[#E02020] dark:group-hover:text-[#ff6b6b] transition-colors">{{ $story->title_bn }}</p>
                             <p class="text-xs text-[#999] dark:text-[#777] mt-1">{{ $story->published_at?->format('d F Y') }}</p>
@@ -348,15 +363,39 @@
                 </form>
             </div>
 
-            {{-- Facebook --}}
-            <a href="{{ $facebookUrl }}" target="_blank" rel="noopener" class="group block bg-[#1877F2] text-white px-4 py-3 hover:bg-[#166fe5] transition-colors">
-                <div class="flex items-center gap-3">
-                    <svg class="h-6 w-6 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    <div>
-                        <p class="text-sm font-bold">Facebook-এ অনুসরণ করুন</p>
-                        <p class="text-xs text-white/70">PEN News</p>
+            {{-- Facebook Page Plugin --}}
+            <div class="border border-[#e0e0e0] dark:border-[#333] overflow-hidden">
+                <div class="bg-[#1877F2] px-3 py-2 flex items-center gap-2">
+                    <svg class="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    <span class="text-white text-xs font-bold">PEN News</span>
+                </div>
+                <iframe
+                    src="https://www.facebook.com/plugins/page.php?href={{ urlencode('https://www.facebook.com/penbd/') }}&tabs=timeline&width=340&height=450&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&cta=false"
+                    width="340"
+                    height="450"
+                    style="border:none;overflow:hidden"
+                    scrolling="no"
+                    frameborder="0"
+                    allowfullscreen="true"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    class="w-full dark:grayscale dark:contrast-90 dark:brightness-75"
+                    loading="lazy"
+                    title="PEN News Facebook Timeline"
+                ></iframe>
+            </div>
+            {{-- Facebook Follow CTA --}}
+            <a href="{{ $facebookUrl }}" target="_blank" rel="noopener" class="group relative block overflow-hidden rounded-sm text-white transition-all duration-300 hover:shadow-lg hover:shadow-[#1877F2]/20">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#1877F2] via-[#1a78f0] to-[#0d65d9]"></div>
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.12),transparent_60%)]"></div>
+                <div class="relative px-4 py-3 flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center shrink-0 group-hover:bg-white/25 transition-colors duration-300">
+                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                     </div>
-                    <svg class="h-4 w-4 ml-auto shrink-0 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-bold leading-tight">Facebook-এ ফলো করুন</p>
+                        <p class="text-[11px] text-white/60">সরাসরি আপডেট পান</p>
+                    </div>
+                    <svg class="h-4 w-4 shrink-0 text-white/50 group-hover:text-white/90 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
                 </div>
             </a>
         </aside>

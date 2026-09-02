@@ -6,7 +6,7 @@
   {{-- Masthead --}}
   <div class="border-t-[3px] border-b border-[#0d0d0d] dark:border-white py-6 mb-12 text-center">
     <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#666] dark:text-[#999] mb-2">প্রাথমিক শিক্ষা নিউজ</p>
-    <h1 class="font-['Playfair_Display'] text-4xl md:text-5xl font-medium text-[#0d0d0d] dark:text-white tracking-tight">আমাদের টিম</h1>
+    <h1 class="font-serif text-4xl md:text-5xl font-medium text-[#0d0d0d] dark:text-white tracking-tight">আমাদের টিম</h1>
     <p class="text-sm text-[#666] dark:text-[#999] mt-2">সম্পাদক, প্রতিবেদক ও উপদেষ্টাগণ</p>
   </div>
 
@@ -33,7 +33,7 @@
                  class="w-full h-full object-cover grayscale group-hover:grayscale-[60%] transition duration-300">
           @else
             <div class="w-full h-full flex items-center justify-center">
-              <span class="font-['Playfair_Display'] text-6xl font-medium text-white/20 leading-none">{{ mb_substr($person->name_bn, 0, 1) }}</span>
+              <span class="font-serif text-6xl font-medium text-white/20 leading-none">{{ mb_substr($person->name_bn, 0, 1) }}</span>
             </div>
           @endif
         </div>

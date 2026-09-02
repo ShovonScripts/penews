@@ -2,7 +2,7 @@
 @section('title', 'আমার আর্টিকেল')
 @section('content')
 <div class="flex items-center justify-between mb-6">
-    <h1 class="font-['Playfair_Display'] text-2xl font-bold dark:text-white">আমার আর্টিকেল</h1>
+    <h1 class="font-serif text-2xl font-bold dark:text-white">আমার আর্টিকেল</h1>
     <a href="{{ route('staff.articles.create') }}" class="bg-[#E02020] dark:bg-[#cc1a1a] text-white px-5 py-2 text-sm font-medium hover:bg-red-700 dark:hover:bg-[#991515] transition">নতুন আর্টিকেল</a>
 </div>
 

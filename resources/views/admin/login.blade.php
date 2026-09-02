@@ -6,7 +6,7 @@
 <div class="min-h-screen flex items-center justify-center px-4">
     <div class="w-full max-w-sm">
         <div class="text-center mb-8">
-            <a href="/" class="font-['Playfair_Display'] font-bold text-4xl text-[#0d0d0d] dark:text-[#e0e0e0]">PEN</a>
+            <a href="/" class="font-serif font-bold text-4xl text-[#0d0d0d] dark:text-[#e0e0e0]">PEN</a>
             <p class="text-[#E02020] text-sm mt-1 font-semibold">এডমিন প্যানেল</p>
         </div>
 
