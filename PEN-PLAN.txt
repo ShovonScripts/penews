@@ -1,0 +1,411 @@
+======================================================================
+           PEN — PRIMARY EDUCATION NETWORK
+           প্রাথমিক শিক্ষা নেটওয়ার্ক
+           Complete Project Plan & Data Store
+======================================================================
+
+======================================================================
+1. PROJECT IDENTITY
+======================================================================
+
+Name (English)  : Primary Education Network (PEN)
+Name (Bangla)   : প্রাথমিক শিক্ষা নেটওয়ার্ক
+Domain          : PrimaryEducationNetwork.com
+Tagline         : Trusted news & resources for Bangladesh's primary teachers
+Audience        : Government & private primary teachers across 64 districts
+Tone            : Authoritative, calm, respectful, professional
+Style           : Like a Bengali professional education journal — no clickbait
+Design DNA      : NYTimes.com — minimalist, typography-driven, restrained,
+                  text-first, authoritative, generous whitespace
+
+----------------------------------------------------------------------
+Logo Specification
+----------------------------------------------------------------------
+- "PEN" in bold serif, white on black (header) / black on white (print)
+- Thin red underline beneath "PEN"
+- Bangla subtitle "প্রাথমিক শিক্ষা নেটওয়ার্ক" in smaller text below
+- Clean wordmark — simple, memorable
+- In header: left-aligned, white text on black nav bar (like NYT's logo placement)
+
+
+======================================================================
+2. COLOR SYSTEM — Minimal, restrained
+======================================================================
+
+Black   #0d0d0d  — Header bg, footer bg, primary buttons
+Off-black #1a1a1a — Body text, section titles
+Red     #E02020  — Minimal accent only: "লাইভ" / "ব্রেকিং" badges,
+                   thin accent lines, active nav indicator, submit buttons
+White   #ffffff  — Page background (dominant surface)
+Warm    #f5f5f5  — Alternate section bg, card bg in some contexts
+Gray    #999999  — Dates, bylines, metadata
+Border  #e0e0e0  — Thin section dividers, card borders
+
+Design principle (NYT-inspired): 95% of the page is black text on white.
+Red is used sparingly like a highlighter — only where attention is needed.
+No blue, no green, no purple.
+
+NOTE from original plan: Black navbar, footer, category backgrounds are kept
+as brand color, but page content area follows NYT's white-dominant approach.
+
+
+======================================================================
+3. TYPOGRAPHY — The backbone of the design (NYT-style)
+======================================================================
+
+Masthead / Headlines : Playfair Display (Google Font) — newspaper gravitas
+Bangla Body          : Hind Siliguri (Google Font) — best Bangla web font
+
+CRITICAL BANGLA RULES:
+  - Body line-height: 1.9 to 2.0 (tight spacing kills readability)
+  - Letter-spacing: 0.01em for headlines
+
+FONT SIZE SCALE (NYT-style hierarchy):
+  - Masthead (site title): 28–32px
+  - Lead story headline: 36–42px
+  - Section headlines: 22–26px
+  - Secondary story headlines: 18–20px
+  - Article body: 17px
+  - Metadata (byline, date): 13px
+  - Section labels: 11-12px uppercase tracking
+
+NYT INSPIRATION:
+  - Headlines are the primary visual element (not images)
+  - Sections are separated with thin rules and uppercase section labels
+  - Generous whitespace around all text blocks
+
+
+======================================================================
+4. LAYOUT — NYT-inspired flexible grid
+======================================================================
+
+NYT uses a fluid multi-column grid (12-column) rather than a rigid 3-column.
+Stories can span different widths to create visual hierarchy.
+
+DESKTOP: 12-column CSS grid — flexible story placements
+TABLET:  reduced to 6-column grid
+MOBILE:  single column
+
+----------------------------------------------------------------------
+4.1 HEADER — NYT-style minimal bar
+----------------------------------------------------------------------
+- Background: black #0d0d0d (full width, sticky)
+- Height: ~56px (compact, NYT-style)
+- Left: "PEN" logo in white, bold serif
+- Center: nav links — সংবাদ, প্রশিক্ষণ, আর্কাইভ, নোটিশ, মতামত, ক্যারিয়ার
+- Right: search icon, dark mode toggle, login button
+- A thin 1px red bottom-border acts as accent line
+
+----------------------------------------------------------------------
+4.2 BREAKING NEWS INDICATOR — NYT "LIVE" badge approach
+----------------------------------------------------------------------
+INSTEAD of a scrolling red bar (original plan), use NYT-style:
+- A small red "লাইভ" or "ব্রেকিং" badge next to the relevant story headline
+- If a major breaking story is active, a thin yellow/gray bar below the header
+  with a single link: "ব্রেকিং: [headline] →" (similar to NYT's breaking bar)
+- HIDDEN when no breaking news
+- This is much less intrusive while maintaining urgency
+
+----------------------------------------------------------------------
+4.3 HERO / TOP STORIES — NYT-style lead story cluster
+----------------------------------------------------------------------
+NYT approach: ONE dominant lead story + secondary stories in a flexible grid.
+
+- Lead story: large headline, image on top or side, 6-8 columns wide
+- Beside/below: 2-4 secondary stories in 4-column cards
+- ALL manually curated by editors (no algorithm)
+- Each card shows: headline, small image (optional), category tag, timestamp
+
+Layout variations (choose based on content volume):
+  A) 1 lead (6 cols) + 2 secondaries (3 cols each) in a row
+  B) 1 lead full-width with large image + 3 secondaries in a row below
+
+----------------------------------------------------------------------
+4.4 SECTION DIVISION — NYT-style category blocks
+----------------------------------------------------------------------
+Each section is separated by:
+  - A thin 1px border-top line
+  - A small uppercase section label (e.g., "শিক্ষা নীতিমালা") in bold, 11px
+  - Optional: small red left border on the label
+
+Inside each section:
+  - 1 featured story (larger) + 2-3 smaller stories
+  - OR if limited content: 3-4 equal cards in a row
+  - Minimal card styling — mostly just text with optional small image
+
+----------------------------------------------------------------------
+4.5 SIDEBAR — Right rail (NYT-style)
+----------------------------------------------------------------------
+- Width: ~300px (fixed) or 30% of content area
+- Contains: "পঠিত হচ্ছে" (most-read), upcoming events, district selector
+- Separated from main content by a thin left border
+- Does NOT scroll independently (simpler responsive behavior)
+
+----------------------------------------------------------------------
+4.6 OPINION SECTION — NYT-style distinctive block
+----------------------------------------------------------------------
+- A separate section with a slightly different visual treatment
+- Background tint #f9f9f9 or a thin top border with "মতামত" label
+- Cards show: author name + photo (small circle), headline, short excerpt
+- Links to full opinion article page
+- This visual distinction signals "this is commentary, not news"
+
+----------------------------------------------------------------------
+4.7 FOOTER — Dense, information-rich (NYT-style)
+----------------------------------------------------------------------
+- Background: black, text: white
+- Multi-column layout (4 cols): About PEN, Quick Links, Categories, Contact
+- Thin white borders between columns
+- Below: copyright line + social media links (Facebook, WhatsApp only)
+- "সম্পাদক ও প্রকাশক" and "প্রিন্ট সংস্করণ" links at bottom
+
+
+======================================================================
+5. ARTICLE / CONTENT STRUCTURE
+======================================================================
+
+Each article includes:
+  - Headline (large Playfair Display)
+  - Featured image (16:9 ratio) with caption & photo credit in italic gray
+  - Author name & designation
+  - Publication date & time
+  - Estimated reading time
+  - Category tag (small uppercase label)
+  - District tag where relevant
+  - Rich text body: bold, italic, pull quotes (large serif, stylized),
+    embedded images, simple tables
+  - "সংশ্লিষ্ট সংবাদ" section at bottom — 3 related articles from same category
+
+ARTICLE PAGE LAYOUT (NYT-inspired):
+  - Centered single-column layout for the article body (max ~700px)
+  - Headline full width above
+  - Image may bleed full width or be contained
+  - Byline and date in small gray text below headline
+  - Share buttons in a sticky left rail on desktop (Facebook, WhatsApp)
+
+
+======================================================================
+6. CATEGORY SYSTEM
+======================================================================
+
+Fixed categories (all primary-teacher-focused). Displayed as uppercase labels.
+
+  SLUG                      BANGLA
+  ───────────────────────────────────────────────────────
+  national                  জাতীয় সংবাদ
+  education-policy          শিক্ষা নীতিমালা
+  teacher-rights            শিক্ষক অধিকার
+  training                  প্রশিক্ষণ
+  exam-results              পরীক্ষা ও ফলাফল
+  recruitment-transfer      নিয়োগ ও বদলি
+  notice-circular           বিজ্ঞপ্তি ও সার্কুলার
+  international             আন্তর্জাতিক
+  opinion                   মতামত
+
+Each category has its own page — reverse chronological, standard pagination.
+Category pages show article grid (3-4 columns on desktop, 1 on mobile).
+
+
+======================================================================
+7. FEATURES
+======================================================================
+
+----------------------------------------------------------------------
+7.1 SEARCH
+----------------------------------------------------------------------
+- Full-text search (Bangla + English)
+- Filters: date range, category, district
+- Search: icon in header opens a full-page overlay (NYT-style) or dropdown
+- Results page: article cards with keyword highlighted
+
+----------------------------------------------------------------------
+7.2 USER REGISTRATION & LOGIN
+----------------------------------------------------------------------
+- Register: name, mobile number, district, upazila, school name, designation
+- Email: optional
+- Login: mobile OTP (primary) + Google login (secondary)
+- Dashboard: saved articles, training progress, certificates, notification prefs
+
+----------------------------------------------------------------------
+7.3 PEN TRAINING HUB
+----------------------------------------------------------------------
+- Professional development courses
+- Each course: title, description, duration, video lessons (YouTube embed)
+- Enroll → watch → mark complete → progress bar
+- MCQ quiz at end; pass ≥70% → downloadable PDF certificate
+  - Certificate: teacher name, course title, completion date, PEN seal
+  - Share to WhatsApp
+- Physical workshops listed with district-filtered registration forms
+
+----------------------------------------------------------------------
+7.4 PEN ARCHIVE
+----------------------------------------------------------------------
+- Searchable document library
+- Government circulars, gazette notifications, policy documents, orders
+- Organized by YEAR + subcategory: নিয়োগ, বেতন ও ভাতা, ছুটি, বদলি, পরীক্ষা, পাঠ্যক্রম
+- Browser PDF viewer or download
+- Also: training materials, lesson plans, textbooks by grade
+
+----------------------------------------------------------------------
+7.5 EVENTS CALENDAR
+----------------------------------------------------------------------
+- Monthly calendar view
+- Types: webinars, workshops, exam dates, scholarship deadlines, holidays, PEN events
+- Filterable by district
+- Event detail page with "আমার ক্যালেন্ডারে যোগ করুন" → Google Calendar / iCal
+
+----------------------------------------------------------------------
+7.6 OPINION & TEACHER VOICE
+----------------------------------------------------------------------
+- Teachers submit own articles → editorial review → publish/reject
+- Approved: full name, school, district displayed
+- Visually distinct from news (separate section, different card style)
+
+----------------------------------------------------------------------
+7.7 COMMENTS
+----------------------------------------------------------------------
+- Moderated, login required, no anonymous
+- Reported comments hidden pending review
+- Upvote button on comments
+- NYT-style: comments section at very bottom, clearly separated
+
+----------------------------------------------------------------------
+7.8 NEWSLETTER
+----------------------------------------------------------------------
+- Weekly digest (Sunday), manually curated
+- Top 5 articles + 1 event + 1 featured document
+- Subscribe via mobile or email
+- WhatsApp broadcast as alternative
+
+----------------------------------------------------------------------
+7.9 PUSH NOTIFICATIONS
+----------------------------------------------------------------------
+- Browser push for breaking news (opt-in)
+- In-app notification bell: new circular, course update, comment reply
+
+----------------------------------------------------------------------
+7.10 SOCIAL SHARING
+----------------------------------------------------------------------
+- Facebook + WhatsApp only (Bangladesh-dominant platforms)
+- Large thumb-friendly buttons
+- Sticky left rail on article pages (NYT-style)
+
+----------------------------------------------------------------------
+7.11 DISTRICT FILTER
+----------------------------------------------------------------------
+- Persistent in sidebar
+- Filters homepage by district relevance
+- Filters events to user's division
+
+----------------------------------------------------------------------
+7.12 PRINT VIEW
+----------------------------------------------------------------------
+- Clean print version: no nav, sidebar, ads
+- Just: headline, image, body, source info
+
+----------------------------------------------------------------------
+7.13 DARK MODE
+----------------------------------------------------------------------
+- Header toggle
+- Dark gray bg, white text, red accents unchanged
+- Saved to localStorage
+
+----------------------------------------------------------------------
+7.14 PWA
+----------------------------------------------------------------------
+- Add to home screen
+- Recent pages accessible offline
+
+
+======================================================================
+8. MOBILE UX
+======================================================================
+
+- Mobile-first responsive (70%+ users on phone)
+- Header → hamburger menu
+- All grids → single column
+- Minimum font: 17px
+- All buttons ≥ 48px tall
+- Lazy image loading
+- Usable on 3G / mid-range Android
+
+
+======================================================================
+9. ADMIN PANEL
+======================================================================
+
+- Write, edit, schedule, publish articles (rich text, Bangla support)
+- Manage users
+- Review opinion submissions
+- Moderate comments
+- Upload archive documents
+- Manage events
+- Send newsletter
+- Basic analytics
+
+
+======================================================================
+10. SEO & PERFORMANCE
+======================================================================
+
+- Meta title, description, OG image per article
+- URLs: /news/primary-teacher-salary-update-2026 (English transliterated slugs)
+- Target: < 2s on 4G
+- Images: compressed WebP
+- Homepage: server-side rendered
+- Target Bangla keywords
+
+
+======================================================================
+11. EDITORIAL STANDARDS
+======================================================================
+
+- NO auto-playing video
+- NO pop-up ads
+- MAX 2 ad slots (sidebar + below comments)
+- NO clickbait / no unverified rumors
+- Official source only for circulars/govt orders
+- Named author always (exceptional circumstances only)
+- Factual, neutral, precise tone
+
+
+======================================================================
+12. THREE-YEAR ROADMAP
+======================================================================
+
+YEAR 1 — Core site live: homepage, articles, archive, registration
+           → 10,000 registered teachers
+
+YEAR 2 — Training hub + certificates, opinion section, events calendar
+           → 30,000 registered teachers
+
+YEAR 3 — District coordinators, ambassador program, workshop series
+           → 50,000 registered teachers
+
+
+======================================================================
+13. NYT UI/UX DESIGN PRINCIPLES — Applied to PEN
+======================================================================
+
+PRINCIPLE                NYT APPROACH                    PEN APPLICATION
+─────────────────────────────────────────────────────────────────────────────────
+Whitespace               Generous, text breathes        Padding around all cards,
+                                                        1.9 line-height for body
+Typography-driven        Headlines = main visual        Playfair for headlines,
+                                                        Hind Siliguri for body
+Restrained color         Black, white, minimal red      Same — 3 colors only
+Section separation       Thin rules + uppercase label   Same pattern
+Live/breaking            Small red badge, not a bar     Same — "লাইভ" badge
+Lead story hierarchy     One dominant + secondary       Same — 1 lead + 2-4 cards
+Article page            Centered column, sticky share   Same
+Opinion section          Visually distinct style        Background tint + author
+                                                         photos
+Footer                   Dense, link-heavy, columns     Same
+Search                   Icon → full overlay            Same pattern
+Mobile                   Hamburger, stacked grid        Same
+Ad placement             Labeled, non-intrusive         Same — "বিজ্ঞাপন" marker
+
+
+======================================================================
+END OF PLAN
+======================================================================
